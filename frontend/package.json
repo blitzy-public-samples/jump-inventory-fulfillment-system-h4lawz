@@ -1,0 +1,56 @@
+{
+  "name": "task-management-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the Task Management application",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
+    "axios": "^1.4.0",
+    "tailwindcss": "^3.3.2",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
+    "formik": "^2.2.9",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.41.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.23",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.8",
+    "vitest": "^0.31.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
