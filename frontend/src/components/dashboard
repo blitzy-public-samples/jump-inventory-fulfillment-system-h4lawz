@@ -1,0 +1,60 @@
+import React from 'react';
+
+interface SummaryCardProps {
+  title: string;
+  value: number;
+  icon: string;
+}
+
+const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, icon }) => {
+  return (
+    <div className="summary-card">
+      <div className="summary-card__icon">{icon}</div>
+      <div className="summary-card__content">
+        <h3 className="summary-card__title">{title}</h3>
+        <p className="summary-card__value">{value}</p>
+      </div>
+    </div>
+  );
+};
+
+export default SummaryCard;
+```
+
+```tsx
+// HUMAN ASSISTANCE NEEDED
+// The confidence level for this component is below 0.8. Please review and refine the implementation.
+
+import React from 'react';
+import { formatDate } from 'frontend/src/utils/formatters';
+
+interface ActivityItem {
+  id: string;
+  date: Date;
+  description: string;
+  // Add other necessary properties
+}
+
+interface ActivityFeedProps {
+  activities: ActivityItem[];
+}
+
+const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
+  const sortedActivities = activities.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  return (
+    <div className="activity-feed">
+      <h2>Recent Activity</h2>
+      <ul className="activity-feed__list">
+        {sortedActivities.map((activity) => (
+          <li key={activity.id} className="activity-feed__item">
+            <span className="activity-feed__date">{formatDate(activity.date)}</span>
+            <p className="activity-feed__description">{activity.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ActivityFeed;
