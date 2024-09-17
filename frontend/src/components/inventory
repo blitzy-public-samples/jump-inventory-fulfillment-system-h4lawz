@@ -1,0 +1,82 @@
+import React, { useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from 'frontend/src/store/hooks';
+import { fetchInventoryAsync, updateInventoryItemAsync } from 'frontend/src/store/slices/inventorySlice';
+import { formatCurrency } from 'frontend/src/utils/formatters';
+
+// HUMAN ASSISTANCE NEEDED
+// This component requires additional work to be production-ready.
+// Implement sorting, filtering, and low stock alerts as described in the steps.
+// Also, consider adding error handling and loading states.
+
+const InventoryGrid: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const inventory = useAppSelector(state => state.inventory.items);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingQuantity, setEditingQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(fetchInventoryAsync());
+  }, [dispatch]);
+
+  const handleEdit = (id: string, quantity: number) => {
+    setEditingId(id);
+    setEditingQuantity(quantity);
+  };
+
+  const handleSave = (id: string) => {
+    dispatch(updateInventoryItemAsync({ id, quantity: editingQuantity }));
+    setEditingId(null);
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+  };
+
+  return (
+    <div className="inventory-grid">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {inventory.map(item => (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.sku}</td>
+              <td>
+                {editingId === item.id ? (
+                  <input
+                    type="number"
+                    value={editingQuantity}
+                    onChange={(e) => setEditingQuantity(Number(e.target.value))}
+                  />
+                ) : (
+                  item.quantity
+                )}
+              </td>
+              <td>{formatCurrency(item.price)}</td>
+              <td>
+                {editingId === item.id ? (
+                  <>
+                    <button onClick={() => handleSave(item.id)}>Save</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                  </>
+                ) : (
+                  <button onClick={() => handleEdit(item.id, item.quantity)}>Edit</button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default InventoryGrid;
